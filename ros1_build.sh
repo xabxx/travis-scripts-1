@@ -25,7 +25,7 @@ else
     rosdep install --from-paths src --ignore-src --rosdistro "${ROS_DISTRO}" -r -y
 fi
 
-. "/opt/ros/${ROS_DISTRO}/setup.sh"
+. /opt/ros/${ROS_DISTRO}/setup.sh
 
 colcon build --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_CXX_FLAGS='-fprofile-arcs -ftest-coverage' -DCMAKE_C_FLAGS='-fprofile-arcs -ftest-coverage'
 
