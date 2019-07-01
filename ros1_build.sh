@@ -33,6 +33,10 @@ if [ -z "${NO_TEST}" ]; then
     if [ ! -z "${PACKAGE_NAMES}" ]; then
         colcon build --packages-select ${PACKAGE_NAMES} --cmake-target tests
     fi
+    
+    if [ ! -z "${PACKAGE_NAME}" ]; then
+        colcon build --packages-select ${PACKAGE_NAME} --cmake-target tests
+    fi
 
     # run unit tests
     . ./install/setup.sh
@@ -55,7 +59,12 @@ if [ -z "${NO_TEST}" ]; then
             ;;
         "python")
             # this doesn't actually support multiple packages
-            cd "/${ROS_DISTRO}_ws/build/${PACKAGE_NAMES}"
+            if [ ! -z "${PACKAGE_NAMES}" ]; then
+                cd "/${ROS_DISTRO}_ws/build/${PACKAGE_NAMES}"
+            fi
+            if [ ! -z "${PACKAGE_NAME}" ]; then
+                cd "/${ROS_DISTRO}_ws/build/${PACKAGE_NAME}"
+            fi
             coverage xml
             cp coverage.xml /shared/coverage.info
             ;;
